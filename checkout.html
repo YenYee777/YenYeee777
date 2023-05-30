@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>對帳單</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 3%;
+        }
+        
+        input {
+            margin-bottom: 3%;
+        }
+        
+        button {
+            margin-top: 3%;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="email"] {
+            height: 30px;
+        }
+        
+        button[type="submit"] {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form_1">
+        <h2>確認訂單</h2>
+        <p id="total-price"></p>
+        <p>購買品項:</p>
+        <ul id="cart-items"></ul>
+        <label for="name">姓名:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">電子郵件:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="address">地址:</label>
+        <input type="text" id="address" name="address" required>
+
+        <button type="submit">確定</button>
+    </form>
+
+    <script>
+        // 從本地儲存或 cookie 中獲取訂購總金額和訂購品項
+        var totalPrice = localStorage.getItem('totalPrice');
+        var cartItems = localStorage.getItem('cartItems');
+
+        // 填入訂購總金額和訂購品項到對應的元素中
+        document.getElementById('total-price').innerText = totalPrice;
+        document.getElementById('cart-items').innerHTML = cartItems;
+
+        // 清除本地儲存或 cookie（選擇性）
+        localStorage.removeItem('totalPrice');
+        localStorage.removeItem('cartItems');
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表單提交重新載入頁面
+
+            // 顯示確認框
+            var confirmResult = confirm('確定要下訂嗎？');
+
+            if (confirmResult) {
+                // 顯示訂購成功提示框
+                alert('訂購成功！');
+                document.getElementById('form_1').innerText = '訂購成功，感謝購買!';
+            }
+        });
+    </script>
+</body>
+
+
+</html>
